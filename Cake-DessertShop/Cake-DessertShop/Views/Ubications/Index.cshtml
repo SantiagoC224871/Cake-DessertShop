@@ -21,7 +21,10 @@
                     <thead>
                         <tr>
                             <th>
-                                <h6 class="panel-title">Nombre</h6>
+                                <h7 class="panel-title">Nombre</h7>
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CitiesNumber)
                             </th>
                             <th></th>
                         </tr>
@@ -32,6 +35,9 @@
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CitiesNumber)
                                 </td>
                                 <td>
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a>

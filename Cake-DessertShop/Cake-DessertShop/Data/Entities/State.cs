@@ -13,7 +13,7 @@ namespace CakeDessertShop.Data.Entities
 
         public ICollection<City> Cities { get; set; }
 
-        [Display(Name = "Departamentos")]
+        [Display(Name = "Ciudades")]
         public int CitiesNumber => Cities == null ? 0 : Cities.Count;
     }
 }
