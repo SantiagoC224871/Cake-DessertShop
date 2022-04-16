@@ -56,21 +56,21 @@ namespace CakeDessertShop.Data
                             Neighborhoods = new List<Neighborhood>()
                             {
                                 new Neighborhood { Name = "San Lucas"},
-                                new Neighborhood { Name = "Milan"},
+                                new Neighborhood { Name = "Milan"}
                             }
                         },
                         new City { Name = "Itagüí",
                             Neighborhoods = new List<Neighborhood>()
                             {
                                 new Neighborhood { Name = "Ditaires"},
-                                new Neighborhood { Name = "Pilsen"},
+                                new Neighborhood { Name = "Pilsen"}
                             }
                         },
                         new City { Name = "Sabaneta",
                             Neighborhoods = new List<Neighborhood>()
                             {
                                 new Neighborhood { Name = "Santa Ana"},
-                                new Neighborhood { Name = "Palenque"},
+                                new Neighborhood { Name = "Palenque"}
                             }
                         }
                     }
@@ -101,6 +101,7 @@ namespace CakeDessertShop.Data
                             Neighborhoods = new List<Neighborhood>()
                             {
                                 new Neighborhood { Name = "Bellavista"},
+                                new Neighborhood { Name = "Barranquillita"}
                             }
                         }
                     }
@@ -113,7 +114,9 @@ namespace CakeDessertShop.Data
                         new City { Name = "Cartagena",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "El Centro"},
+                                new Neighborhood { Name = "Getsemaní"},
+                                new Neighborhood { Name = "La Matuna"}
                             }
                         }
                     }
@@ -126,7 +129,9 @@ namespace CakeDessertShop.Data
                         new City { Name = "Tunja",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Santa Ana"},
+                                new Neighborhood { Name = "Asis Boyacense"},
+                                new Neighborhood { Name = "Santa Catalina"}
                             }
                         }
                     }
@@ -139,7 +144,9 @@ namespace CakeDessertShop.Data
                         new City { Name = "Manizales",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Bella Montaña"},
+                                new Neighborhood { Name = "Sacatin"},
+                                new Neighborhood { Name = "Chipre"}
                             }
                         }
                     }
@@ -152,7 +159,9 @@ namespace CakeDessertShop.Data
                        new City { Name = "Florencia",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Malvinas"},
+                                new Neighborhood { Name = "Buenos Aires Bajos"},
+                                new Neighborhood { Name = "Puente Lopez"}
                             }
                         }
                     }
@@ -165,7 +174,10 @@ namespace CakeDessertShop.Data
                         new City { Name = "Yopal",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Torres del Cubarro"},
+                                new Neighborhood { Name = "El Cimarrón"},
+                                new Neighborhood { Name = "Los Naranjos"},
+                                new Neighborhood { Name = "	La Independencia"}
                             }
                         }
                     }
@@ -178,7 +190,11 @@ namespace CakeDessertShop.Data
                         new City { Name = "Popayán",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Modelo"},
+                                new Neighborhood { Name = "Loma Linda"},
+                                new Neighborhood { Name = "Prados del Norte"},
+                                new Neighborhood { Name = "La Cabaña"},
+                                new Neighborhood { Name = "Santa Clara"}
                             }
                         }
                     }
@@ -191,7 +207,10 @@ namespace CakeDessertShop.Data
                         new City { Name = "Valledupar",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Altagracia"},
+                                new Neighborhood { Name = "La Garita"},
+                                new Neighborhood { Name = "El Centro"},
+                                new Neighborhood { Name = "El Cerezo"}
                             }
                         }
                     }
@@ -204,7 +223,11 @@ namespace CakeDessertShop.Data
                        new City { Name = "Quibdó",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Alto Munguidó"},
+                                new Neighborhood { Name = "Barranco"},
+                                new Neighborhood { Name = "Bellaluz"},
+                                new Neighborhood { Name = "Calahorra"},
+                                new Neighborhood { Name = "Boca de Nemotá"}
                             }
                         }
                     }
@@ -217,7 +240,11 @@ namespace CakeDessertShop.Data
                         new City { Name = "Montería",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Nariño"},
+                                new Neighborhood { Name = "Montería Moderno"},
+                                new Neighborhood { Name = "El Centro"},
+                                new Neighborhood { Name = "La Ceiba"},
+                                new Neighborhood { Name = "Ospina Pérez"},
                             }
                         }
                     }
@@ -230,7 +257,25 @@ namespace CakeDessertShop.Data
                        new City { Name = "Bogotá",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Usaquén"},
+                                new Neighborhood { Name = "Chapinero"},
+                                new Neighborhood { Name = "Santa Fe"},
+                                new Neighborhood { Name = "San Cristóbal"},
+                                new Neighborhood { Name = "Usme"},
+                                new Neighborhood { Name = "Tunjuelito"},
+                                new Neighborhood { Name = "Bosa"},
+                                new Neighborhood { Name = "Kennedy"},
+                                new Neighborhood { Name = "Fontibón"},
+                                new Neighborhood { Name = "Engativá"},
+                                new Neighborhood { Name = "Suba"},
+                                new Neighborhood { Name = "Barrios Unidos"},
+                                new Neighborhood { Name = "Teusaquillo"},
+                                new Neighborhood { Name = "Mártires"},
+                                new Neighborhood { Name = "Antonio Nariño"},
+                                new Neighborhood { Name = "Puente Aranda"},
+                                new Neighborhood { Name = "La Candelaria"},
+                                new Neighborhood { Name = "Rafael Uribe Uribe"},
+                                new Neighborhood { Name = "Ciudad Bolívar"}
                             }
                         }
                     }
@@ -243,7 +288,14 @@ namespace CakeDessertShop.Data
                         new City { Name = "Puerto Inírida",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Inírida"},
+                                new Neighborhood { Name = "Barranco Minas"},
+                                new Neighborhood { Name = "Mapiripana"},
+                                new Neighborhood { Name = "Morichal Nuevo"},
+                                new Neighborhood { Name = "Cacahual"},
+                                new Neighborhood { Name = "Pana Pana"},
+                                new Neighborhood { Name = "San Felipe"},
+                                new Neighborhood { Name = "La Guadalupe"}
                             }
                         }
                     }
@@ -256,7 +308,10 @@ namespace CakeDessertShop.Data
                         new City { Name = "San José del Guaviare",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "San José del Guaviare"},
+                                new Neighborhood { Name = "El Retorno"},
+                                new Neighborhood { Name = "Calamar"},
+                                new Neighborhood { Name = "Miraflores"}
                             }
                         }
                     }
@@ -269,7 +324,11 @@ namespace CakeDessertShop.Data
                         new City { Name = "Neiva",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Aipecito"},
+                                new Neighborhood { Name = "Chapinero"},
+                                new Neighborhood { Name = "San Luis"},
+                                new Neighborhood { Name = "Guacirco"},
+                                new Neighborhood { Name = "Fortalecillas"}
                             }
                         }
                     }
@@ -282,7 +341,12 @@ namespace CakeDessertShop.Data
                         new City { Name = "Riohacha",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Obrero"},
+                                new Neighborhood { Name = "20 de julio"},
+                                new Neighborhood { Name = "San Francisco"},
+                                new Neighborhood { Name = "Rojas Pinilla"},
+                                new Neighborhood { Name = "La Loma"},
+                                new Neighborhood { Name = "Calancala"}
                             }
                         }
                     }
@@ -295,7 +359,12 @@ namespace CakeDessertShop.Data
                         new City { Name = "Santa Marta",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "El Pueblito"},
+                                new Neighborhood { Name = "El Territorial"},
+                                new Neighborhood { Name = "La Esperanza"},
+                                new Neighborhood { Name = "Santa Helena"},
+                                new Neighborhood { Name = "Los Troncos"},
+                                new Neighborhood { Name = "Perehuétano"}
                             }
                         }
                     }
@@ -308,7 +377,13 @@ namespace CakeDessertShop.Data
                         new City { Name = "Villavicencio",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "La Esperanza"},
+                                new Neighborhood { Name = "Paraíso"},
+                                new Neighborhood { Name = "Cooperativo"},
+                                new Neighborhood { Name = "Jardín"},
+                                new Neighborhood { Name = "Cambulos"},
+                                new Neighborhood { Name = "Santa Marta"},
+                                new Neighborhood { Name = "Los Centauros"}
                             }
                         }
                     }
@@ -334,7 +409,11 @@ namespace CakeDessertShop.Data
                         new City { Name = "Cúcuta",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Ciudadela Atalaya"},
+                                new Neighborhood { Name = "Ciudadela La Libertad"},
+                                new Neighborhood { Name = "Comuna del centro"},
+                                new Neighborhood { Name = "Aeropuerto"},
+                                new Neighborhood { Name = "Aniversario Uno"}
                             }
                         }
                     }
@@ -344,12 +423,7 @@ namespace CakeDessertShop.Data
                     Name = "Putumayo",
                     Cities = new List<City>()
                     {
-                        new City { Name = "Mocoa",
-                            Neighborhoods = new List<Neighborhood>()
-                            {
-                                new Neighborhood { Name = "Unión"},
-                            }
-                        }
+                        new City { Name = "Mocoa" }
                     }
                 });
                 _context.States.Add(new State
@@ -360,7 +434,14 @@ namespace CakeDessertShop.Data
                         new City { Name = "Armenia",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Centenario"},
+                                new Neighborhood { Name = "Rufino José Cuervo Sur"},
+                                new Neighborhood { Name = "Alfonso López"},
+                                new Neighborhood { Name = "Francisco de Paula Santander"},
+                                new Neighborhood { Name = "El Bosque"},
+                                new Neighborhood { Name = "San José"},
+                                new Neighborhood { Name = "El Cafetero"},
+                                new Neighborhood { Name = "Libertadores"}
                             }
                         }
                     }
@@ -373,7 +454,25 @@ namespace CakeDessertShop.Data
                         new City { Name = "Pereira",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Ferrocarril"},
+                                new Neighborhood { Name = "Olímpica"},
+                                new Neighborhood { Name = "San Joaquín"},
+                                new Neighborhood { Name = "Cuba"},
+                                new Neighborhood { Name = "Del Café"},
+                                new Neighborhood { Name = "El Oso"},
+                                new Neighborhood { Name = "Perla del Otún"},
+                                new Neighborhood { Name = "Consotá"},
+                                new Neighborhood { Name = "El Rocío"},
+                                new Neighborhood { Name = "El Poblado"},
+                                new Neighborhood { Name = "El Jardín"},
+                                new Neighborhood { Name = "San Nicolás"},
+                                new Neighborhood { Name = "Centro"},
+                                new Neighborhood { Name = "Río Otún"},
+                                new Neighborhood { Name = "Boston"},
+                                new Neighborhood { Name = "Universidad"},
+                                new Neighborhood { Name = "Villavicencio"},
+                                new Neighborhood { Name = "Oriente"},
+                                new Neighborhood { Name = "Villasantana"}
                             }
                         }
                     }
@@ -386,7 +485,12 @@ namespace CakeDessertShop.Data
                         new City { Name = "San Andrés",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Tablitas"},
+                                new Neighborhood { Name = "Modelo"},
+                                new Neighborhood { Name = "Natania"},
+                                new Neighborhood { Name = "Back Road"},
+                                new Neighborhood { Name = "Atlantico"},
+                                new Neighborhood { Name = "Slave Hill"}
                             }
                         }
                     }
@@ -399,7 +503,16 @@ namespace CakeDessertShop.Data
                         new City { Name = "Bucaramanga",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Cabecera del Llano"},
+                                new Neighborhood { Name = "Sotomayor"},
+                                new Neighborhood { Name = "Antiguo Campestre"},
+                                new Neighborhood { Name = "Bolarquí"},
+                                new Neighborhood { Name = "Mercedes"},
+                                new Neighborhood { Name = "Puerta del Sol"},
+                                new Neighborhood { Name = "Conucos"},
+                                new Neighborhood { Name = "El Jardín"},
+                                new Neighborhood { Name = "Pan de Azúcar"},
+                                new Neighborhood { Name = "Los Cedros"}
                             }
                         }
                     }
@@ -412,7 +525,14 @@ namespace CakeDessertShop.Data
                         new City { Name = "Sincelejo",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Las Huertas"},
+                                new Neighborhood { Name = "San Antonio"},
+                                new Neighborhood { Name = "Buenavista"},
+                                new Neighborhood { Name = "Buena vistica"},
+                                new Neighborhood { Name = "Babilonia"},
+                                new Neighborhood { Name = "San Jacinto"},
+                                new Neighborhood { Name = "Cerro del Naranjo"},
+                                new Neighborhood { Name = "San Martín"}
                             }
                         }
                     }
@@ -425,7 +545,13 @@ namespace CakeDessertShop.Data
                         new City { Name = "Ibagué",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Centro"},
+                                new Neighborhood { Name = "Calambeo"},
+                                new Neighborhood { Name = "San Simón​"},
+                                new Neighborhood { Name = "Piedrapintada"},
+                                new Neighborhood { Name = "Jordán"},
+                                new Neighborhood { Name = "Vergel"},
+                                new Neighborhood { Name = "Salado"}
                             }
                         }
                     }
@@ -438,7 +564,11 @@ namespace CakeDessertShop.Data
                         new City { Name = "Cali",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "San Cayetano"},
+                                new Neighborhood { Name = "Centenario"},
+                                new Neighborhood { Name = "El Limonar"},
+                                new Neighborhood { Name = "El Peñón"},
+                                new Neighborhood { Name = "La Merced"}
                             }
                         }
                     }
@@ -451,7 +581,10 @@ namespace CakeDessertShop.Data
                         new City { Name = "Mitú",
                             Neighborhoods = new List<Neighborhood>()
                             {
-                                new Neighborhood { Name = "Unión"},
+                                new Neighborhood { Name = "Inaya"},
+                                new Neighborhood { Name = "San José"},
+                                new Neighborhood { Name = "Belarmino"},
+                                new Neighborhood { Name = "La Floresta"}
                             }
                         }
                     }
@@ -461,12 +594,7 @@ namespace CakeDessertShop.Data
                     Name = "Vichada",
                     Cities = new List<City>()
                     {
-                        new City { Name = "Puerto Carreño",
-                            Neighborhoods = new List<Neighborhood>()
-                            {
-                                new Neighborhood { Name = "Unión"},
-                            }
-                        }
+                        new City { Name = "Puerto Carreño" }
                     }
                 });
                 await _context.SaveChangesAsync();
