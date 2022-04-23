@@ -5,13 +5,13 @@
     ViewData["Title"] = "Register";
 }
 
-<h2>Registrar</h2>
+<h2>Crear</h2>
 
-<h4>Usuario</h4>
+<h4>Administrador</h4>
 <hr />
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="Register" enctype="multipart/form-data">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="UserType" />
@@ -45,7 +45,7 @@
             <partial name="_User" />
 
             <div class="form-group mt-2">
-                <input type="submit" value="Registrar" class="btn btn-outline-primary" />
+                <input type="submit" value="Guardar" class="btn btn-outline-primary" />
             </div>
         </form>
     </div>
@@ -55,12 +55,12 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#CityId").change(function () {
+            $("#StateId").change(function () {
                 debugger;
                 $("#CityId").empty();
                 $("#CityId").append('<option value="0">[Selecciona una ciudad...]</option>');
                 $("#NeighborhoodId").empty();
-                $("#NeighborhoodId").append('<option value="0">[Selecciona un barrio...]</option>');
+                $("#NeighborhoodId").append('<option value="0">[Selecciona un bariio...]</option>');
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("GetCities")',
@@ -68,27 +68,26 @@
                     data: { stateId: $("#StateId").val() },
                     success: function (cities) {
                         $.each(cities, function (i, city) {
-                            $("#CityId").append('<option value="'
+                            $("#cityId").append('<option value="'
                                 + city.id + '">'
                                 + city.name + '</option>');
                         });
                     },
                     error: function (ex) {
-                        alert('Failed to retrieve states.' + ex);
+                        alert('Failed to retrieve cities.' + ex);
                     }
                 });
                 return false;
             })
-
             $("#CityId").change(function () {
-                $("#NeighborhoodId").empty();
+                $("#NeigborhoodId").empty();
                 $("#NeighborhoodId").append('<option value="0">[Selecciona un barrio...]</option>');
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("GetCities")',
+                    url: '@Url.Action("GetNeighborhood")',
                     dataType: 'json',
-                    data: { cityId: $("#cityId").val() },
-                    success: function (neighborhood) {
+                    data: { cityId: $("#CityId").val() },
+                    success: function (Neighborhoods) {
                         $.each(neighborhood, function (i, neighborhood) {
                             debugger;
                             $("#NeighborhoodId").append('<option value="'
@@ -105,7 +104,3 @@
         });
     </script>
 }
-
-    
-
-
