@@ -2,11 +2,16 @@
 using CakeDessertShop.Data;
 using CakeDessertShop.Data.Entities;
 using CakeDessertShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CakeDessertShop.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
+
+
     public class UbicationsController : Controller
     {
         private readonly DataContext _context;

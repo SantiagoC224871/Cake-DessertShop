@@ -22,6 +22,8 @@ namespace CakeDessertShop.Data
             await CheckRolesAsync();
             await CheckCategoriesAsync();
             await CheckUserAsync("1010", "Santiago", "Carmona", "santiago@yopmail.com", "312 5289621", "Calle xxx", UserType.Admin);
+            await CheckUserAsync("2020", "Juan", "Agudelo", "Juan@yopmail.com", "312 5289621", "Calle xxx", UserType.Admin);
+
         }
 
         private async Task CheckCategoriesAsync()
