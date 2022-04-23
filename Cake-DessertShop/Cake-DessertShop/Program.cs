@@ -14,7 +14,7 @@ builder.Services.AddDbContext<DataContext>(o =>
     o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-//TODO: Make strongest password
+
 builder.Services.AddIdentity<User, IdentityRole>(cfg =>
 {
     cfg.User.RequireUniqueEmail = true;
@@ -26,9 +26,14 @@ builder.Services.AddIdentity<User, IdentityRole>(cfg =>
     cfg.Password.RequiredLength = 6;
 }).AddEntityFrameworkStores<DataContext>();
 
-
-builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IUserHelper, UserHelper>();
+builder.Services.AddScoped<IBlobHelper, BlobHelper>();
+builder.Services.AddScoped<ICombosHelper, CombosHelper>();
+builder.Services.AddTransient<SeedDb>();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+
+
 
 var app = builder.Build();
 SeedData();
