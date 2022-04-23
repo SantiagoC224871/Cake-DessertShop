@@ -15,9 +15,11 @@ namespace CakeDessertShop.Data
 
         public DbSet<State> States { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Category>().HasIndex(c => c.Name).IsUnique();
             modelBuilder.Entity<State>().HasIndex(s => s.Name).IsUnique();
             modelBuilder.Entity<City>().HasIndex("Name", "StateId").IsUnique();
             modelBuilder.Entity<Neighborhood>().HasIndex("Name", "CityId").IsUnique();

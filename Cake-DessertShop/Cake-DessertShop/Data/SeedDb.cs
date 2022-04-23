@@ -20,7 +20,21 @@ namespace CakeDessertShop.Data
             await _context.Database.EnsureCreatedAsync();
             await CheckStatesAsync();
             await CheckRolesAsync();
+            await CheckCategoriesAsync();
             await CheckUserAsync("1010", "Santiago", "Carmona", "santiago@yopmail.com", "312 5289621", "Calle xxx", UserType.Admin);
+        }
+
+        private async Task CheckCategoriesAsync()
+        {
+            if (!_context.Categories.Any())
+            {
+                _context.Categories.Add(new Category { Name = "Postres" });
+                _context.Categories.Add(new Category { Name = "Bebidas" });
+                _context.Categories.Add(new Category { Name = "Pasteles" });
+                _context.Categories.Add(new Category { Name = "Helados" });
+                _context.Categories.Add(new Category { Name = "Eventos especiales" });
+                await _context.SaveChangesAsync();
+            }
         }
 
         private async Task<User> CheckUserAsync(
