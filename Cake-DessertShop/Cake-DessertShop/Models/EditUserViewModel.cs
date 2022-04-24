@@ -35,11 +35,10 @@ namespace CakeDessertShop.Models
         [Display(Name = "Foto")]
         public Guid ImageId { get; set; }
 
-        //TODO: Pending to put the correct paths
         [Display(Name = "Foto")]
         public string ImageFullPath => ImageId == Guid.Empty
             ? $"https://localhost:7057/images/noimage.png"
-            : $"https://shoppingbd.blob.core.windows.net/users/{ImageId}";
+            : $"https://shoppingscm.blob.core.windows.net/users/{ImageId}";
 
         [Display(Name = "Imagen")]
         public IFormFile ImageFile { get; set; }

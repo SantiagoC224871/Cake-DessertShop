@@ -68,7 +68,7 @@
                     url: '@Url.Action("GetNeighborhoods")',
                     dataType: 'json',
                     data: { cityId: $("#CityId").val() },
-                    success: function (naighborhoods) {
+                    success: function (neighborhoods) {
                         $.each(neighborhoods, function (i, neighborhood) {
                             debugger;
                             $("#NeighborhoodId").append('<option value="'

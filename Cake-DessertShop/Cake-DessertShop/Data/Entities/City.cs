@@ -13,7 +13,6 @@ namespace CakeDessertShop.Data.Entities
         public string Name { get; set; }
 
         [JsonIgnore]
-
         public State State { get; set; }
         public ICollection<Neighborhood> Neighborhoods { get; set; }
 

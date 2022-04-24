@@ -140,13 +140,13 @@ namespace CakeDessertShop.Controllers
         {
             City city = _context.Cities 
                 .Include(c => c.Neighborhoods)
-                .FirstOrDefault(s => s.Id == cityId);
+                .FirstOrDefault(c => c.Id == cityId);
             if (city == null)
             {
                 return null;
             }
 
-            return Json(city.Neighborhoods.OrderBy(c => c.Name));
+            return Json(city.Neighborhoods.OrderBy(n => n.Name));
         }
 
         public async Task<IActionResult> ChangeUser()
@@ -246,7 +246,5 @@ namespace CakeDessertShop.Controllers
 
             return View(model);
         }
-
-
     }
 }

@@ -14,8 +14,6 @@ namespace CakeDessertShop.Helpers
             string keys = configuration["Blob:ConnectionString"];
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(keys);
             _blobClient = storageAccount.CreateCloudBlobClient();
-
-
         }
 
         public async Task DeleteBlobAsync(Guid id, string containerName)
