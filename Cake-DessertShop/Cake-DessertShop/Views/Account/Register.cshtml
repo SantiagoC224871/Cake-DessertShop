@@ -54,7 +54,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#CityId").change(function () {
+            $("#StateId").change(function () {
                 debugger;
                 $("#CityId").empty();
                 $("#CityId").append('<option value="0">[Selecciona una ciudad...]</option>');
@@ -84,11 +84,11 @@
                 $("#NeighborhoodId").append('<option value="0">[Selecciona un barrio...]</option>');
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("GetCities")',
+                    url: '@Url.Action("GetNeighborhoods")',
                     dataType: 'json',
-                    data: { cityId: $("#cityId").val() },
-                    success: function (neighborhood) {
-                        $.each(neighborhood, function (i, neighborhood) {
+                    data: { cityId: $("#CityId").val() },
+                    success: function (neighborhoods) {
+                        $.each(neighborhoods, function (i, neighborhood) {
                             debugger;
                             $("#NeighborhoodId").append('<option value="'
                                 + neighborhood.id + '">'

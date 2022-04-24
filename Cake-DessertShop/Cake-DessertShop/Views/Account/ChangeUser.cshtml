@@ -13,7 +13,7 @@
         <form asp-action="ChangeUser" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="ImageId" />
+
             <input type="hidden" asp-for="States" />
             <input type="hidden" asp-for="Cities" />
             <input type="hidden" asp-for="Neighborhoods" />
@@ -45,10 +45,10 @@
                     type: 'POST',
                     url: '@Url.Action("GetCities")',
                     dataType: 'json',
-                    data: { countryId: $("#StateId").val() },
+                    data: { stateId: $("#StateId").val() },
                     success: function (cities) {
                         $.each(cities, function (i, city) {
-                            $("#cityId").append('<option value="'
+                            $("#CityId").append('<option value="'
                                 + city.id + '">'
                                 + city.name + '</option>');
                         });

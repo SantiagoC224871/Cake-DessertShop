@@ -41,7 +41,8 @@ namespace CakeDessertShop.Models
             : $"https://shoppingscm.blob.core.windows.net/users/{ImageId}";
 
         [Display(Name = "Imagen")]
-        public IFormFile ImageFile { get; set; }
+
+        public IFormFile? ImageFile { get; set; }
 
         [Display(Name = "Estado/Departamento")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes de seleccionar un estado/departamento.")]
