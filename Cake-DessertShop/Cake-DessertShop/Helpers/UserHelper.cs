@@ -62,6 +62,10 @@ namespace CakeDessertShop.Helpers
             await _UserManager.AddToRoleAsync(user, roleName);
         }
 
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
+        {
+            return await _UserManager.ChangePasswordAsync(user, oldPassword, newPassword);
+        }
 
         public async Task CheckRoleAsync(string roleName)
         {
@@ -80,7 +84,18 @@ namespace CakeDessertShop.Helpers
         {
             return await _context.Users
                 .Include(u => u.Neighborhood)
+                .ThenInclude(n => n.City)
+                .ThenInclude(c => c.State)
                 .FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+        public async Task<User> GetUserAsync(Guid userId)
+        {
+            return await _context.Users
+               .Include(u => u.Neighborhood)
+               .ThenInclude(n => n.City)
+               .ThenInclude(c => c.State)
+               .FirstOrDefaultAsync(u => u.Id == userId.ToString());
         }
 
         public async Task<bool> IsUserInRoleAsync(User user, string roleName)
@@ -100,6 +115,11 @@ namespace CakeDessertShop.Helpers
         public async Task LogoutAsync()
         {
             await _SignInManager.SignOutAsync();
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(User user)
+        {
+            return await _UserManager.UpdateAsync(user);
         }
     }
 }

@@ -6,6 +6,12 @@ namespace CakeDessertShop.Helpers
 {
     public interface IUserHelper
     {
+        Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
+
+        Task<IdentityResult> UpdateUserAsync(User user);
+
+        Task<User> GetUserAsync(Guid userId);
+
         Task<User> GetUserAsync(string email);
 
         Task<IdentityResult> AddUserAsync(User user, string password);
