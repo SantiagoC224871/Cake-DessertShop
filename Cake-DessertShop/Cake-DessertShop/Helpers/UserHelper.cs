@@ -121,5 +121,26 @@ namespace CakeDessertShop.Helpers
         {
             return await _UserManager.UpdateAsync(user);
         }
+
+        public async Task<string> GeneratePasswordResetTokenAsync(User user)
+        {
+            return await _UserManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
+        {
+            return await _UserManager.ResetPasswordAsync(user, token, password);
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+        {
+            return await _UserManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await _UserManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
     }
 }
