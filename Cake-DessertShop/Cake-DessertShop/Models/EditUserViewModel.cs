@@ -41,7 +41,7 @@ namespace CakeDessertShop.Models
             ? $"https://localhost:7057/images/noimage.png"
             : $"https://shoppingbd.blob.core.windows.net/users/{ImageId}";
 
-        [Display(Name = "Image")]
+        [Display(Name = "Imagen")]
         public IFormFile ImageFile { get; set; }
 
         [Display(Name = "Estado/Departamento")]
