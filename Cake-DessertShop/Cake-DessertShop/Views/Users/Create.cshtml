@@ -68,7 +68,7 @@
                     data: { stateId: $("#StateId").val() },
                     success: function (cities) {
                         $.each(cities, function (i, city) {
-                            $("#cityId").append('<option value="'
+                            $("#CityId").append('<option value="'
                                 + city.id + '">'
                                 + city.name + '</option>');
                         });
@@ -80,15 +80,15 @@
                 return false;
             })
             $("#CityId").change(function () {
-                $("#NeigborhoodId").empty();
+                $("#NeighborhoodId").empty();
                 $("#NeighborhoodId").append('<option value="0">[Selecciona un barrio...]</option>');
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("GetNeighborhood")',
+                    url: '@Url.Action("GetNeighborhoods")',
                     dataType: 'json',
                     data: { cityId: $("#CityId").val() },
-                    success: function (Neighborhoods) {
-                        $.each(neighborhood, function (i, neighborhood) {
+                    success: function (neighborhoods) {
+                        $.each(neighborhoods, function (i, neighborhood) {
                             debugger;
                             $("#NeighborhoodId").append('<option value="'
                                 + neighborhood.id + '">'
@@ -103,4 +103,4 @@
             })
         });
     </script>
-}
+}  
