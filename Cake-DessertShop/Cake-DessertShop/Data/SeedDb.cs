@@ -23,7 +23,7 @@ namespace CakeDessertShop.Data
             await CheckCategoriesAsync();
             await CheckUserAsync("1010", "Santiago", "Carmona", "santiago@yopmail.com", "312 5289621", "Calle xxx", UserType.Admin);
             await CheckUserAsync("2020", "Juan", "Agudelo", "Juan@yopmail.com", "312 5289621", "Calle xxx", UserType.Admin);
-
+            await CheckUserAsync("3030", "Juan", "Zuluaga", "zulu@yopmail.com", "312 5289621", "Calle xxx", UserType.User);
         }
 
         private async Task CheckCategoriesAsync()
@@ -66,6 +66,9 @@ namespace CakeDessertShop.Data
 
                 await _userHelper.AddUserAsync(user, "123456");
                 await _userHelper.AddUserToRoleAsync(user, userType.ToString());
+
+                string token = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
+                await _userHelper.ConfirmEmailAsync(user, token);
             }
 
             return user;

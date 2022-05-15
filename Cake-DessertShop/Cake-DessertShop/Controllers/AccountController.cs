@@ -7,12 +7,13 @@ using CakeDessertShop.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace CakeDessertShop.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserHelper _UserHelper;
+        private readonly IUserHelper _userHelper;
         private readonly DataContext _context;
         private readonly ICombosHelper _combosHelper;
         private readonly IBlobHelper _blobHelper;
@@ -22,7 +23,7 @@ namespace CakeDessertShop.Controllers
         public AccountController(IUserHelper UserHelper, DataContext context,
             ICombosHelper combosHelper, IBlobHelper blobHelper, IMailHelper mailHelper)
         {
-            _UserHelper = UserHelper;
+            _userHelper = UserHelper;
             _context = context;
             _combosHelper = combosHelper;
             _blobHelper = blobHelper;
@@ -58,7 +59,7 @@ namespace CakeDessertShop.Controllers
                 }
 
                 model.ImageId = imageId;
-                User user = await _UserHelper.AddUserAsync(model);
+                User user = await _userHelper.AddUserAsync(model);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "Este correo ya está siendo usado.");
@@ -68,7 +69,7 @@ namespace CakeDessertShop.Controllers
                     return View(model);
                 }
 
-                string myToken = await _UserHelper.GenerateEmailConfirmationTokenAsync(user);
+                string myToken = await _userHelper.GenerateEmailConfirmationTokenAsync(user);
                 string tokenLink = Url.Action("ConfirmEmail", "Account", new
                 {
                     userid = user.Id,
@@ -78,8 +79,8 @@ namespace CakeDessertShop.Controllers
                 Response response = _mailHelper.SendMail(
                     $"{model.FirstName} {model.LastName}",
                     model.Username,
-                    "Shopping - Confirmación de Email",
-                    $"<h1>Shopping - Confirmación de Email</h1>" +
+                    "Cake & Dessert Shop - Confirmación de Email",
+                    $"<h1>Cake & Dessert - Confirmación de Email</h1>" +
                         $"Para habilitar el usuario por favor hacer clicn en el siguiente link:, " +
                         $"<p><a href = \"{tokenLink}\">Confirmar Email</a></p>");
                 if (response.IsSuccess)
@@ -90,20 +91,6 @@ namespace CakeDessertShop.Controllers
 
                 ModelState.AddModelError(string.Empty, response.Message);
 
-
-                LoginViewModel loginViewModel = new()
-                {
-                    Password = model.Password,
-                    RememberMe = false,
-                    Username = model.Username
-                };
-
-                var result2 = await _UserHelper.LoginAsync(loginViewModel);
-
-                if (result2.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
             }
 
             model.States = await _combosHelper.GetComboStatesAsync();
@@ -129,25 +116,40 @@ namespace CakeDessertShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                Microsoft.AspNetCore.Identity.SignInResult result = await _UserHelper.LoginAsync(model);
+                Microsoft.AspNetCore.Identity.SignInResult result = await _userHelper.LoginAsync(model);
                 if (result.Succeeded)
                 {
+                    if (Request.Query.Keys.Contains("ReturnUrl"))
+                    {
+                        return Redirect(Request.Query["ReturnUrl"].First());
+                    }
+
                     return RedirectToAction("Index", "Home");
+                }
+
+                if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError(string.Empty, "Ha superado el máximo número de intentos," +
+                        " su cuenta está bloqueada, intente de nuevo en 5 minutos.");
                 }
                 else if (result.IsNotAllowed)
                 {
-                    ModelState.AddModelError(string.Empty, "El usuario no ha sido habilitado, debes de seguir las instrucciones del correo enviado para poder habilitar el usuario.");
+                    ModelState.AddModelError(string.Empty, "El usuario no ha sido habilitado, " +
+                        "debes de seguir las instrucciones del correo enviado para poder habilitarse en el sistema.");
                 }
-
-                ModelState.AddModelError(string.Empty, "Email o contraseña incorrectos.");
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Email o contraseña incorrectos.");
+                }
             }
 
             return View(model);
         }
 
+
         public async Task<IActionResult> Logout()
         {
-            await _UserHelper.LogoutAsync();
+            await _userHelper.LogoutAsync();
             return RedirectToAction("Index", "Home");
         }
 
@@ -184,7 +186,7 @@ namespace CakeDessertShop.Controllers
 
         public async Task<IActionResult> ChangeUser()
         {
-            User user = await _UserHelper.GetUserAsync(User.Identity.Name);
+            User user = await _userHelper.GetUserAsync(User.Identity.Name);
             if (user == null)
             {
                 return NotFound();
@@ -223,7 +225,7 @@ namespace CakeDessertShop.Controllers
                     imageId = await _blobHelper.UploadBlobAsync(model.ImageFile, "users");
                 }
 
-                User user = await _UserHelper.GetUserAsync(User.Identity.Name);
+                User user = await _userHelper.GetUserAsync(User.Identity.Name);
 
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
@@ -233,7 +235,7 @@ namespace CakeDessertShop.Controllers
                 user.Neighborhood = await _context.Neighborhoods.FindAsync(model.NeighborhoodId);
                 user.Document = model.Document;
 
-                await _UserHelper.UpdateUserAsync(user);
+                await _userHelper.UpdateUserAsync(user);
                 return RedirectToAction("Index", "Home");
             }
             model.States = await _combosHelper.GetComboStatesAsync();
@@ -258,10 +260,10 @@ namespace CakeDessertShop.Controllers
                     return View(model);
                 }
 
-                var user = await _UserHelper.GetUserAsync(User.Identity.Name);
+                var user = await _userHelper.GetUserAsync(User.Identity.Name);
                 if (user != null)
                 {
-                    var result = await _UserHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    var result = await _userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("ChangeUser");
@@ -290,14 +292,14 @@ namespace CakeDessertShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await _UserHelper.GetUserAsync(model.Email);
+                User user = await _userHelper.GetUserAsync(model.Email);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "El email no corresponde a ningún usuario registrado.");
                     return View(model);
                 }
 
-                string myToken = await _UserHelper.GeneratePasswordResetTokenAsync(user);
+                string myToken = await _userHelper.GeneratePasswordResetTokenAsync(user);
                 string link = Url.Action(
                     "ResetPassword",
                     "Account",
@@ -305,8 +307,8 @@ namespace CakeDessertShop.Controllers
                 _mailHelper.SendMail(
                     $"{user.FullName}",
                     model.Email,
-                    "Shopping - Recuperación de Contraseña",
-                    $"<h1>Shopping - Recuperación de Contraseña</h1>" +
+                    "Cake & Dessert Shop - Recuperación de Contraseña",
+                    $"<h1>Cake & Dessert Shop - Recuperación de Contraseña</h1>" +
                     $"Para recuperar la contraseña haga click en el siguiente enlace:" +
                     $"<p><a href = \"{link}\">Reset Password</a></p>");
                 ViewBag.Message = "Las instrucciones para recuperar la contraseña han sido enviadas a su correo.";
@@ -324,10 +326,10 @@ namespace CakeDessertShop.Controllers
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            User user = await _UserHelper.GetUserAsync(model.UserName);
+            User user = await _userHelper.GetUserAsync(model.UserName);
             if (user != null)
             {
-                IdentityResult result = await _UserHelper.ResetPasswordAsync(user, model.Token, model.Password);
+                IdentityResult result = await _userHelper.ResetPasswordAsync(user, model.Token, model.Password);
                 if (result.Succeeded)
                 {
                     ViewBag.Message = "Contraseña cambiada con éxito.";
@@ -349,13 +351,13 @@ namespace CakeDessertShop.Controllers
                 return NotFound();
             }
 
-            User user = await _UserHelper.GetUserAsync(new Guid(userId));
+            User user = await _userHelper.GetUserAsync(new Guid(userId));
             if (user == null)
             {
                 return NotFound();
             }
 
-            IdentityResult result = await _UserHelper.ConfirmEmailAsync(user, token);
+            IdentityResult result = await _userHelper.ConfirmEmailAsync(user, token);
             if (!result.Succeeded)
             {
                 return NotFound();

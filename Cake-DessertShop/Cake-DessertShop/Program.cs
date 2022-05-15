@@ -26,6 +26,9 @@ builder.Services.AddIdentity<User, IdentityRole>(cfg =>
     cfg.Password.RequireNonAlphanumeric = false;
     cfg.Password.RequireUppercase = false;
     cfg.Password.RequiredLength = 6;
+    cfg.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+    cfg.Lockout.MaxFailedAccessAttempts = 3;
+    cfg.Lockout.AllowedForNewUsers = true;
 })  .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<DataContext>();
 
@@ -43,18 +46,16 @@ builder.Services.AddScoped<IMailHelper, MailHelper>();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 
-
-
 var app = builder.Build();
 SeedData();
 
 void SeedData()
 {
-    IServiceScopeFactory? scopedFactory = app.Services.GetService<IServiceScopeFactory>();
+    IServiceScopeFactory scopedFactory = app.Services.GetService<IServiceScopeFactory>();
 
-    using (IServiceScope? scope = scopedFactory.CreateScope())
+    using (IServiceScope scope = scopedFactory.CreateScope())
     {
-        SeedDb? service = scope.ServiceProvider.GetService<SeedDb>();
+        SeedDb service = scope.ServiceProvider.GetService<SeedDb>();
         service.SeedAsync().Wait();
     }
 
