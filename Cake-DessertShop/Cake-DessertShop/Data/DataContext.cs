@@ -15,6 +15,10 @@ namespace CakeDessertShop.Data
 
         public DbSet<State> States { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
+
         public DbSet<Category> Categories { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,6 +27,8 @@ namespace CakeDessertShop.Data
             modelBuilder.Entity<State>().HasIndex(s => s.Name).IsUnique();
             modelBuilder.Entity<City>().HasIndex("Name", "StateId").IsUnique();
             modelBuilder.Entity<Neighborhood>().HasIndex("Name", "CityId").IsUnique();
+            modelBuilder.Entity<Product>().HasIndex(c => c.Name).IsUnique();
+            modelBuilder.Entity<ProductCategory>().HasIndex("ProductId", "CategoryId").IsUnique();
         }
     }
 }

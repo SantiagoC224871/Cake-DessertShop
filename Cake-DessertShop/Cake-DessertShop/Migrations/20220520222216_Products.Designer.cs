@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CakeDessertShop.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220424005103_prove")]
-    partial class prove
+    [Migration("20220520222216_Products")]
+    partial class Products
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,7 +58,7 @@ namespace CakeDessertShop.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("StateId")
+                    b.Property<int?>("StateId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -66,7 +66,8 @@ namespace CakeDessertShop.Migrations
                     b.HasIndex("StateId");
 
                     b.HasIndex("Name", "StateId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[StateId] IS NOT NULL");
 
                     b.ToTable("Cities");
                 });
@@ -79,7 +80,7 @@ namespace CakeDessertShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CityId")
+                    b.Property<int?>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -92,9 +93,87 @@ namespace CakeDessertShop.Migrations
                     b.HasIndex("CityId");
 
                     b.HasIndex("Name", "CityId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[CityId] IS NOT NULL");
 
                     b.ToTable("Neighborhoods");
+                });
+
+            modelBuilder.Entity("CakeDessertShop.Data.Entities.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<float>("Stock")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("CakeDessertShop.Data.Entities.ProductCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ProductId", "CategoryId")
+                        .IsUnique()
+                        .HasFilter("[ProductId] IS NOT NULL AND [CategoryId] IS NOT NULL");
+
+                    b.ToTable("ProductCategories");
+                });
+
+            modelBuilder.Entity("CakeDessertShop.Data.Entities.ProductImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("CakeDessertShop.Data.Entities.State", b =>
@@ -166,7 +245,7 @@ namespace CakeDessertShop.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<int>("NeighborhoodId")
+                    b.Property<int?>("NeighborhoodId")
                         .HasColumnType("int");
 
                     b.Property<string>("NormalizedEmail")
@@ -351,9 +430,7 @@ namespace CakeDessertShop.Migrations
                 {
                     b.HasOne("CakeDessertShop.Data.Entities.State", "State")
                         .WithMany("Cities")
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StateId");
 
                     b.Navigation("State");
                 });
@@ -362,20 +439,40 @@ namespace CakeDessertShop.Migrations
                 {
                     b.HasOne("CakeDessertShop.Data.Entities.City", "City")
                         .WithMany("Neighborhoods")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
 
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("CakeDessertShop.Data.Entities.ProductCategory", b =>
+                {
+                    b.HasOne("CakeDessertShop.Data.Entities.Category", "Category")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("CakeDessertShop.Data.Entities.Product", "Product")
+                        .WithMany("ProductCategories")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CakeDessertShop.Data.Entities.ProductImage", b =>
+                {
+                    b.HasOne("CakeDessertShop.Data.Entities.Product", "Product")
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("CakeDessertShop.Data.Entities.User", b =>
                 {
                     b.HasOne("CakeDessertShop.Data.Entities.Neighborhood", "Neighborhood")
                         .WithMany("Users")
-                        .HasForeignKey("NeighborhoodId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("NeighborhoodId");
 
                     b.Navigation("Neighborhood");
                 });
@@ -431,6 +528,11 @@ namespace CakeDessertShop.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CakeDessertShop.Data.Entities.Category", b =>
+                {
+                    b.Navigation("ProductCategories");
+                });
+
             modelBuilder.Entity("CakeDessertShop.Data.Entities.City", b =>
                 {
                     b.Navigation("Neighborhoods");
@@ -439,6 +541,13 @@ namespace CakeDessertShop.Migrations
             modelBuilder.Entity("CakeDessertShop.Data.Entities.Neighborhood", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("CakeDessertShop.Data.Entities.Product", b =>
+                {
+                    b.Navigation("ProductCategories");
+
+                    b.Navigation("ProductImages");
                 });
 
             modelBuilder.Entity("CakeDessertShop.Data.Entities.State", b =>
