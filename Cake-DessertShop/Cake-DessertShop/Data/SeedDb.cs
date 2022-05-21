@@ -34,7 +34,10 @@ namespace CakeDessertShop.Data
                 _context.Categories.Add(new Category { Name = "Bebidas" });
                 _context.Categories.Add(new Category { Name = "Pasteles" });
                 _context.Categories.Add(new Category { Name = "Helados" });
-                _context.Categories.Add(new Category { Name = "Eventos especiales" });
+                _context.Categories.Add(new Category { Name = "Especialidades de la casa" });
+                _context.Categories.Add(new Category { Name = "Cumpleaños" });
+                _context.Categories.Add(new Category { Name = "Bodas" });
+                _context.Categories.Add(new Category { Name = "Galletas" });
                 await _context.SaveChangesAsync();
             }
         }
