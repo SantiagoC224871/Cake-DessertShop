@@ -1,6 +1,7 @@
 ﻿using CakeDessertShop.Data.Entities;
 using CakeDessertShop.Enums;
 using CakeDessertShop.Helpers;
+using Microsoft.EntityFrameworkCore;
 
 namespace CakeDessertShop.Data
 {
@@ -8,11 +9,13 @@ namespace CakeDessertShop.Data
     {
         private readonly DataContext _context;
         private readonly IUserHelper _userHelper;
+        private readonly IBlobHelper _blobHelper;
 
-        public SeedDb(DataContext context, IUserHelper userHelper)
+        public SeedDb(DataContext context, IUserHelper userHelper, IBlobHelper blobHelper)
         {
             _context = context;
             _userHelper = userHelper;
+            _blobHelper = blobHelper;
         }
 
         public async Task SeedAsync()
@@ -21,9 +24,46 @@ namespace CakeDessertShop.Data
             await CheckStatesAsync();
             await CheckRolesAsync();
             await CheckCategoriesAsync();
-            await CheckUserAsync("1010", "Santiago", "Carmona", "santiago@yopmail.com", "312 5289621", "Calle xxx", UserType.Admin);
-            await CheckUserAsync("2020", "Juan", "Agudelo", "Juan@yopmail.com", "312 5289621", "Calle xxx", UserType.Admin);
-            await CheckUserAsync("3030", "Juan", "Zuluaga", "zulu@yopmail.com", "312 5289621", "Calle xxx", UserType.User);
+            await CheckUserAsync("1010", "Santiago", "Carmona", "santiago@yopmail.com", "312 5289621", "Calle xxx", "SantiagoCarmona.png", UserType.Admin);
+            await CheckUserAsync("2020", "Juan", "Agudelo", "Juan@yopmail.com", "312 5289621", "Calle xxx", "NoImage.png", UserType.Admin);
+            await CheckUserAsync("3030", "Juan", "Zuluaga", "zulu@yopmail.com", "312 5289621", "Calle xxx", "NoImage.png", UserType.User);
+            await CheckProductsAsync();
+        }
+
+        private async Task CheckProductsAsync()
+        {
+            if (!_context.Products.Any())
+            {
+                await AddProductAsync("Malteada Chocolate", 12000M, 8F, new List<string>() { "Bebidas" }, new List<string>() { "MalteadaChocolate.jpg" });
+                await AddProductAsync("Malteada Fresa", 12000M, 8F, new List<string>() { "Bebidas" }, new List<string>() { "MalteadaFresa.jpg" });
+                await AddProductAsync("Pasteles de Boda", 900000M, 3F, new List<string>() { "Bodas" }, new List<string>() { "Bodas1.jpg", "Bodas2.jpg", "Bodas3.jpg", "Bodas4.jpg", "Bodas5.jpg", "Bodas6.jpg", "Bodas7.jpg", "Bodas8.jpg", "Bodas9.jpg" });
+                await AddProductAsync("Cupcake Chocolate", 7000M, 12F, new List<string>() { "Postres" }, new List<string>() { "CupcakeChocolate.jpg" });
+                await AddProductAsync("Cupcake Fresa", 7000M, 12F, new List<string>() { "Postres" }, new List<string>() { "CupcakeFresa.jpg" });
+                await AddProductAsync("Cupcake Limon", 7000M, 12F, new List<string>() { "Postres" }, new List<string>() { "CupcakeLimon.jpg" });
+                await AddProductAsync("Cupcake Mora", 7000M, 12F, new List<string>() { "Postres" }, new List<string>() { "CupcakeMora.jpg" });
+                await AddProductAsync("Cupcake Naranja", 7000M, 12F, new List<string>() { "Postres" }, new List<string>() { "CupcakeNaranja.jpg" });
+                await AddProductAsync("Cupcake Vainilla", 7000M, 12F, new List<string>() { "Postres" }, new List<string>() { "CupcakeVainilla.jpg" });
+                await AddProductAsync("Galleta Frambuesa", 3000M, 15F, new List<string>() { "Galletas" }, new List<string>() { "GalletaFrambuesa.jpg" });
+                await AddProductAsync("Galleta Doble Chocolate", 3000M, 15F, new List<string>() { "Galletas" }, new List<string>() { "GalletasDobleChocolate.jpg" });
+                await AddProductAsync("Galleta Chocolate Chips", 3000M, 15F, new List<string>() { "Galletas" }, new List<string>() { "GalletasChipsChocolate.jpg" });
+                await AddProductAsync("Litro Helado Chocolate", 11000M, 10F, new List<string>() { "Helado" }, new List<string>() { "LitroHeladoChocolate.jpg" });
+                await AddProductAsync("Litro Helado Frutos Rojos", 11000M, 10F, new List<string>() { "Helado" }, new List<string>() { "HeladoFrutosRojos.png" });
+                await AddProductAsync("Litro Helado Vainilla", 11000M, 10F, new List<string>() { "Helado" }, new List<string>() { "LitroHeladoVainilla.jpg" });
+                await AddProductAsync("Pastel Chocolate Tradicional", 64000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelChocolateTradicional.jpg" });
+                await AddProductAsync("Pastel Vainilla Colores", 54000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelCumpleaños1.jpg" });
+                await AddProductAsync("Pastel Chocolate Arequipe", 50000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelCumpleaños2.jpg" });
+                await AddProductAsync("Pastel Vainilla Fresa", 45000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelCumpleaños4.jpg" });
+                await AddProductAsync("Pastel Explosión de Chocolate", 70000M, 4F, new List<string>() { "Pasteles", "Especialidades de la casa" }, new List<string>() { "PastelExplosiondeChocolate.jpg" });
+                await AddProductAsync("Pastel Mocha Envinado", 80000M, 4F, new List<string>() { "Pasteles", "Especialidades de la casa" }, new List<string>() { "PastelMochaEnvinado.jpg" });
+                await AddProductAsync("Cheesecake de Oreo", 15000M, 4F, new List<string>() { "Postres" }, new List<string>() { "Cheesecake de Oreo1.jpg", "Cheesecake de Oreo2.jpg", "Cheesecake de Oreo3.jpg"});
+                await AddProductAsync("Gelatina Mosaico", 10000M, 4F, new List<string>() { "Postres" }, new List<string>() { "GelatinaMosaico1.jpg", "GelatinaMosaico2.jpg" });
+                await AddProductAsync("Pay de Fresa", 12000M, 4F, new List<string>() { "Postres" }, new List<string>() { "PaydeFresa1.png", "PaydeFresa2.png" });
+                await AddProductAsync("Pay de Maracuya", 12000M, 4F, new List<string>() { "Postres" }, new List<string>() { "PayMaracuya1.jpeg", "PayMaracuya2.jpg" });
+                await AddProductAsync("Postre Tres Leches", 12000M, 4F, new List<string>() { "Postres" }, new List<string>() { "PostreTresLeches1.jpeg" });
+
+                await _context.SaveChangesAsync();
+            }
+
         }
 
         private async Task CheckCategoriesAsync()
@@ -38,8 +78,34 @@ namespace CakeDessertShop.Data
                 _context.Categories.Add(new Category { Name = "Cumpleaños" });
                 _context.Categories.Add(new Category { Name = "Bodas" });
                 _context.Categories.Add(new Category { Name = "Galletas" });
-                await _context.SaveChangesAsync();
             }
+            await _context.SaveChangesAsync();
+        }
+        private async Task AddProductAsync(string name, decimal price, float stock, List<string> categories, List<string> images)
+        {
+            Product prodcut = new()
+            {
+                Description = name,
+                Name = name,
+                Price = price,
+                Stock = stock,
+                ProductCategories = new List<ProductCategory>(),
+                ProductImages = new List<ProductImage>()
+            };
+
+            foreach (string category in categories)
+            {
+                prodcut.ProductCategories.Add(new ProductCategory { Category = await _context.Categories.FirstOrDefaultAsync(c => c.Name == category) });
+            }
+
+
+            foreach (string image in images)
+            {
+                Guid imageId = await _blobHelper.UploadBlobAsync($"{Environment.CurrentDirectory}\\wwwroot\\Images\\products\\{image}", "products");
+                prodcut.ProductImages.Add(new ProductImage { ImageId = imageId });
+            }
+
+            _context.Products.Add(prodcut);
         }
 
         private async Task<User> CheckUserAsync(
@@ -49,11 +115,14 @@ namespace CakeDessertShop.Data
             string email,
             string phone,
             string address,
+            string image,
             UserType userType)
         {
             User user = await _userHelper.GetUserAsync(email);
             if (user == null)
             {
+                Guid imageId = await _blobHelper.UploadBlobAsync($"{Environment.CurrentDirectory}\\wwwroot\\Images\\users\\{image}", "users");
+
                 user = new User
                 {
                     FirstName = firstName,
@@ -65,6 +134,7 @@ namespace CakeDessertShop.Data
                     Document = document,
                     Neighborhood = _context.Neighborhoods.FirstOrDefault(),
                     UserType = userType,
+                    ImageId = imageId
                 };
 
                 await _userHelper.AddUserAsync(user, "123456");
