@@ -1,3 +1,11 @@
+/*------FUENTES--------------------------
+font-family: 'Dancing Script', cursive;
+font-family: 'Dosis', sans-serif;
+font-family: 'Pacifico', cursive;
+font-family: 'Dancing Script', cursive;
+font-family: 'Pacifico', cursive;*/
+
+
 html {
   font-size: 14px;
 }
@@ -24,20 +32,28 @@ body {
     flex-direction: column;
     justify-content: space-between;
     width: 300px;
-    height: 450px;
+    height: 380px;
     box-shadow: 2px 2px 8px 4px #d3d3d3d1;
     border-radius: 15px;
     font-family: sans-serif;
     margin: 20px;
+    font-family: 'Dancing Script', cursive;
 }
 
 .card_title {
+    background: #e23a3a;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
     font-size: 24px;
-    padding: 10px 10px 0 40px;
+    padding: 5px 0 0 5px;
+    color: white;
+    font-family: 'Dancing Script', cursive;
 }
 
 .card_body {
-    padding: 20px;
+    text-align: center;
+    padding: 20px 0 0;
+    font-family: 'Dosis', sans-serif;
 }
 
 .card_foot {
@@ -62,20 +78,17 @@ body {
         content: ""
     }
 
-
-/* From uiverse.io by @aasisodiya */
 .button {
     padding: 10px 10px;
     border-radius: 10px;
     border: 0;
-    background-color: #ac0909;
     background-color: #8d0909;
     box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
     color: white;
-    font-family: sans-serif;
     text-decoration: none;
     font-size: 15px;
     transition: all .5s ease;
+    font-family: 'Dosis', sans-serif;
 }
 
     .button:hover {
@@ -86,6 +99,65 @@ body {
     }
 
     .button:active {
+        letter-spacing: 1px;
+        background-color: hsl(354, 100%, 18%);
+        color: hsl(0, 0%, 100%);
+        box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+        transform: translateY(10px);
+        transition: 100ms;
+    }
+
+.buttonmiddle {
+    padding: 10px 10px;
+    border-radius: 10px;
+    border: 0;
+    background-color: #ac0909;
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all .5s ease;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+}
+
+    .buttonmiddle:hover {
+        letter-spacing: 1px;
+        background-color: hsl(354, 100%, 18%);
+        color: hsl(0, 0%, 100%);
+        box-shadow: rgb(255, 170, 170) 0px 7px 29px 0px;
+    }
+
+    .buttonmiddle:active {
+        letter-spacing: 1px;
+        background-color: hsl(354, 100%, 18%);
+        color: hsl(0, 0%, 100%);
+        box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+        transform: translateY(10px);
+        transition: 100ms;
+    }
+
+.buttonlight {
+    padding: 10px 10px;
+    border-radius: 10px;
+    border: 0;
+    background-color: #e23a3a;
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    transition: all .5s ease;
+    font-family: 'Dancing Script', cursive;
+}
+
+    .buttonlight:hover {
+        letter-spacing: 1px;
+        background-color: hsl(354, 100%, 18%);
+        color: hsl(0, 0%, 100%);
+        box-shadow: rgb(255, 170, 170) 0px 7px 29px 0px;
+    }
+
+    .buttonlight:active {
         letter-spacing: 1px;
         background-color: hsl(354, 100%, 18%);
         color: hsl(0, 0%, 100%);
@@ -205,7 +277,6 @@ body {
             box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
         }
 
-/* Animation */
 @-webkit-keyframes spinner {
     0% {
         -webkit-transform: rotate(0deg);
@@ -308,4 +379,10 @@ body {
     height: 20px;
     float: left;
     margin: 0 6px 0 0;
+}
+
+body{
+    background: url(../Images/Background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
 }

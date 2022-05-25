@@ -11,10 +11,10 @@
 </div>
 
 <div>
-    <a asp-action="AddImage" asp-route-id="@Model?.Id" class="btn btn-primary">Adicionar Imagen</a>
-    <a asp-action="AddCategory" asp-route-id="@Model?.Id" class="btn btn-secondary">Adicionar Categoría</a>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Editar Producto</a>
-    <a asp-action="Index" class="btn btn-success">Regresar</a>
+    <a asp-action="AddImage" asp-route-id="@Model?.Id" class="buttonlight">Adicionar Imagen</a>
+    <a asp-action="AddCategory" asp-route-id="@Model?.Id" class="buttonmiddle">Adicionar Categoría</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="button">Editar Producto</a>
+    <a asp-action="Index" class="button">Regresar</a>
 </div>
 
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
@@ -44,7 +44,7 @@
                                     <img src="@item.ImageFullPath" style="width:150px;" />
                                 </td>
                                 <td>
-                                    <a asp-action="DeleteImage" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa-solid fa-trash text-dark"></i></a>
+                                    <a asp-action="DeleteImage" asp-route-id="@item.Id" class="button"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         }
@@ -76,7 +76,7 @@
                                     @Html.DisplayFor(modelItem => item.Category.Name)
                                 </td>
                                 <td>
-                                    <a asp-action="DeleteCategory" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa-solid fa-trash text-dark"></i></a>
+                                    <a asp-action="DeleteCategory" asp-route-id="@item.Id" class="button"><i class="fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
                         }

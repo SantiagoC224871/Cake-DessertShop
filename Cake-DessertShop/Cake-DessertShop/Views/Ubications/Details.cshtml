@@ -12,9 +12,9 @@
     <partial name="_StateDetails"/>
 </div>
 <div>
-    <a asp-action="AddCity" asp-route-id="@Model?.Id" class="btn btn-primary">Agregar ciudad</a>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning">Editar departamento</a>
-    <a asp-action="Index" class="btn btn-success">Regresar</a>
+    <a asp-action="AddCity" asp-route-id="@Model?.Id" class="buttonlight">Agregar ciudad</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="buttonmiddle">Editar departamento</a>
+    <a asp-action="Index" class="button">Regresar</a>
 </div>
 <hr />
 <div class="row">
@@ -47,9 +47,9 @@
                                     @Html.DisplayFor(modelItem => item.NeighborhoodsNumber)
                                 </td>
                                 <td>
-                                    <a asp-action="EditCity" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a asp-action="DetailsCity" asp-route-id="@item.Id" class="btn btn-info"><i class="fa-solid fa-circle-info"></i></a>
-                                    <a asp-action="DeleteCity" asp-route-id="@item.Id" class="btn btn-danger"><i class="fa-solid fa-trash text-dark"></i></a>
+                                    <a asp-action="EditCity" asp-route-id="@item.Id" class="buttonlight"><i class="fa-solid fa-pen-to-square"></i> Editar</a>
+                                    <a asp-action="DetailsCity" asp-route-id="@item.Id" class="buttonmiddle"><i class="fa-solid fa-circle-info"></i> Info</a>
+                                    <a asp-action="DeleteCity" asp-route-id="@item.Id" class="button"><i class="fa-solid fa-trash"></i> Eliminar</a>
                                 </td>
                             </tr>
                         }
