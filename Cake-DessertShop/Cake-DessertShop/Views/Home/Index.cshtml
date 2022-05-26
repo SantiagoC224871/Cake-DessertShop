@@ -1,84 +1,79 @@
-﻿@model IEnumerable<CakeDessertShop.Models.ProductsHomeViewModel>
+﻿@model CakeDessertShop.Models.HomeViewModel
 
 @{
     ViewData["Title"] = "Inicio";
 }
 
-
-@foreach (var item in Model)
-{
-    <div class="row">
-        @if (item.Product1 != null)
-        {
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card_title">@item.Product1.Name</div>
-                    <div class="card_body">
-                        <img src="@item.Product1.ImageFullPath" style="width:200px;max-height:200px;border-radius:15%" />
-                        <p class="mt-2">
-                            <h4>@Html.DisplayFor(modelItem => item.Product1.Price)</h4>
-                        </p>
-                    </div>
-                    <div class="card_foot">
-                        <a asp-action="Details" asp-route-id="@item.Product1.Id" class="button">Detalles</a>
-                        <a asp-action="Add" asp-route-id="@item.Product1.Id" class="button">Agregar</a>
-                    </div>
-                </div>
-            </div>
-        }
-        @if (item.Product2 != null)
-        {
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card_title">@item.Product2.Name</div>
-                    <div class="card_body">
-                        <img src="@item.Product2.ImageFullPath" style="width:200px;max-height:200px;border-radius:15%" />
-                        <p class="mt-2">
-                            <h4>@Html.DisplayFor(modelItem => item.Product2.Price)</h4>
-                        </p>
-                    </div>
-                    <div class="card_foot">
-                        <a asp-action="Details" asp-route-id="@item.Product1.Id" class="button">Detalles</a>
-                        <a asp-action="Add" asp-route-id="@item.Product1.Id" class="button">Agregar</a>
-                    </div>
-                </div>
-            </div>
-        }
-        @if (item.Product3 != null)
-        {
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card_title">@item.Product3.Name</div>
-                    <div class="card_body">
-                        <img src="@item.Product3.ImageFullPath" style="width:200px;max-height:200px;border-radius:15%" />
-                        <p class="mt-2">
-                            <h4>@Html.DisplayFor(modelItem => item.Product3.Price)</h4>
-                        </p>
-                    </div>
-                    <div class="card_foot">
-                        <a asp-action="Details" asp-route-id="@item.Product1.Id" class="button">Detalles</a>
-                        <a asp-action="Add" asp-route-id="@item.Product1.Id" class="button">Agregar</a>
-                    </div>
-                </div>
-            </div>
-        }
-        @if (item.Product4 != null)
-        {
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card_title">@item.Product4.Name</div>
-                    <div class="card_body">
-                        <img src="@item.Product4.ImageFullPath" style="width:200px;max-height:200px;border-radius:15%" />
-                        <p class="mt-2">
-                            <h4>@Html.DisplayFor(modelItem => item.Product4.Price)</h4>
-                        </p>
-                    </div>
-                    <div class="card_foot">
-                        <a asp-action="Details" asp-route-id="@item.Product1.Id" class="button">Detalles</a>
-                        <a asp-action="Add" asp-route-id="@item.Product1.Id" class="button">Agregar</a>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+<style type="text/css">
+    .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    height: 380px;
+    box-shadow: 2px 2px 8px 4px #d3d3d3d1;
+    border-radius: 15px;
+    font-family: sans-serif;
+    margin: 20px;
+    font-family: 'Dancing Script', cursive;
 }
+
+.card_title {
+    background: #e23a3a;
+    border-radius: 15px 15px 0 0;
+    text-align: center;
+    font-size: 24px;
+    padding: 5px 0 0 5px;
+    color: white;
+    font-family: 'Dancing Script', cursive;
+}
+.card_body {
+    padding: 10px 0 0 0;
+    font-family: 'Questrial', sans-serif;
+    text-align: center;
+}
+.card_foot {
+    background: #e23a3a;
+    border-radius: 0 0 15px 15px;
+    padding: 20px;
+    text-align: center;
+}
+</style>
+
+@if(Model.Quantity > 0)
+{
+    <a asp-action="ShowCart" class="button">Ver Carro de Compras (@Model.Quantity)</a>
+}
+
+<div class="row row-cols-1 row-cols-md-4 g-4 mt-1">
+    @if (Model.Products.Count() > 0)
+    {
+        @foreach (var item in Model.Products)
+        {
+            <div class="col">
+                <div class="card">
+                    <div class="card_title"> @item.Name</div>
+                        <div class="card_body text-center">
+                                <span class= "description" content="@Html.DisplayFor(modelItem => item.Description)"> 
+                                    <img src="@item.ImageFullPath" style="width:200px; max-height:200px; border-radius: 15%; padding: 0 0 10px" alt=@item.Name />
+                                </span>
+                            <div style="font-size:25px;"> @Html.DisplayFor(modelItem => item.Price)</div>
+                        </div>
+                    <div class="card_foot text-center">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="button">Details</a>
+                        <a asp-action="Add" asp-route-id="@item.Id" class="button">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h3>No hay productos con su criterio de búsqueda</h3>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

@@ -195,6 +195,35 @@ namespace CakeDessertShop.Migrations
                     b.ToTable("States");
                 });
 
+            modelBuilder.Entity("CakeDessertShop.Data.Entities.TemporalSale", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Quantity")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TemporalSales");
+                });
+
             modelBuilder.Entity("CakeDessertShop.Data.Entities.User", b =>
                 {
                     b.Property<string>("Id")
@@ -464,6 +493,21 @@ namespace CakeDessertShop.Migrations
                         .HasForeignKey("ProductId");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("CakeDessertShop.Data.Entities.TemporalSale", b =>
+                {
+                    b.HasOne("CakeDessertShop.Data.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("CakeDessertShop.Data.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CakeDessertShop.Data.Entities.User", b =>

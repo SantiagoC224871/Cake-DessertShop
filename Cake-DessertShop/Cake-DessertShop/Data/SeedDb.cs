@@ -49,12 +49,12 @@ namespace CakeDessertShop.Data
                 await AddProductAsync("Litro Helado Chocolate", 11000M, 10F, new List<string>() { "Helado" }, new List<string>() { "LitroHeladoChocolate.jpg" });
                 await AddProductAsync("Litro Helado Frutos Rojos", 11000M, 10F, new List<string>() { "Helado" }, new List<string>() { "LitroHeladoFrutosRojos.jpg" });
                 await AddProductAsync("Litro Helado Vainilla", 11000M, 10F, new List<string>() { "Helado" }, new List<string>() { "LitroHeladoVainilla.jpg" });
-                await AddProductAsync("Pastel Chocolate Tradicional", 64000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelChocolateTradicional.jpg" });
-                await AddProductAsync("Pastel Vainilla Colores", 54000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelCumpleaños1.jpg" });
-                await AddProductAsync("Pastel Chocolate Arequipe", 50000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelCumpleaños2.jpg" });
-                await AddProductAsync("Pastel Vainilla Fresa", 45000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelCumpleaños4.jpg" });
-                await AddProductAsync("Pastel Explosión de Chocolate", 70000M, 4F, new List<string>() { "Pasteles", "Especialidades de la casa" }, new List<string>() { "PastelExplosiondeChocolate.jpg" });
-                await AddProductAsync("Pastel Mocha Envinado", 80000M, 4F, new List<string>() { "Pasteles", "Especialidades de la casa" }, new List<string>() { "PastelMochaEnvinado.jpg" });
+                await AddProductAsync("Chocolate Tradicional", 64000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelChocolateTradicional.jpg" });
+                await AddProductAsync("Vainilla Colores", 54000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelCumpleaños1.jpg" });
+                await AddProductAsync("Chocolate Arequipe", 50000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelCumpleaños2.jpg" });
+                await AddProductAsync("Vainilla Fresa", 45000M, 4F, new List<string>() { "Pasteles", "Cumpleaños" }, new List<string>() { "PastelCumpleaños4.jpg" });
+                await AddProductAsync("Explosión de Chocolate", 70000M, 4F, new List<string>() { "Pasteles", "Especialidades de la casa" }, new List<string>() { "PastelExplosiondeChocolate.jpg" });
+                await AddProductAsync("Mocha Envinado", 80000M, 4F, new List<string>() { "Pasteles", "Especialidades de la casa" }, new List<string>() { "PastelMochaEnvinado.jpg" });
                 await AddProductAsync("Cheesecake de Oreo", 15000M, 4F, new List<string>() { "Postres" }, new List<string>() { "Cheesecake de Oreo1.jpg", "Cheesecake de Oreo2.jpg", "Cheesecake de Oreo3.jpg"});
                 await AddProductAsync("Gelatina Mosaico", 10000M, 4F, new List<string>() { "Postres" }, new List<string>() { "GelatinaMosaico1.jpg", "GelatinaMosaico2.jpg" });
                 await AddProductAsync("Pay de Fresa", 12000M, 4F, new List<string>() { "Postres" }, new List<string>() { "PaydeFresa1.jpg" });
@@ -175,7 +175,7 @@ namespace CakeDessertShop.Data
                 });
                 _context.States.Add(new State
                 {
-                    Name = "Antiqouia",
+                    Name = "Antioquia",
                     Cities = new List<City>()
                     {
                         new City { Name = "Medellín",

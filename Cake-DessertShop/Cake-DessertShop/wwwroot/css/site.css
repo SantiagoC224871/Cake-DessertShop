@@ -1,9 +1,9 @@
 /*------FUENTES--------------------------
-font-family: 'Dancing Script', cursive;
 font-family: 'Dosis', sans-serif;
 font-family: 'Pacifico', cursive;
 font-family: 'Dancing Script', cursive;
-font-family: 'Pacifico', cursive;*/
+font-family: 'Questrial', sans-serif;
+*/
 
 
 html {
@@ -26,57 +26,6 @@ body {
 }
 
 @charset "utf-8";
-
-.card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 300px;
-    height: 380px;
-    box-shadow: 2px 2px 8px 4px #d3d3d3d1;
-    border-radius: 15px;
-    font-family: sans-serif;
-    margin: 20px;
-    font-family: 'Dancing Script', cursive;
-}
-
-.card_title {
-    background: #e23a3a;
-    border-radius: 15px 15px 0 0;
-    text-align: center;
-    font-size: 24px;
-    padding: 5px 0 0 5px;
-    color: white;
-    font-family: 'Dancing Script', cursive;
-}
-
-.card_body {
-    text-align: center;
-    padding: 20px 0 0;
-    font-family: 'Dosis', sans-serif;
-}
-
-.card_foot {
-    background: #e23a3a;
-    border-radius: 0 0 15px 15px;
-    padding: 20px;
-    text-align: center;
-}
-
-.foot a {
-    text-decoration: none;
-    color: white;
-}
-
-    .foot a:after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 1;
-        content: ""
-    }
 
 .button {
     padding: 10px 10px;
@@ -118,7 +67,7 @@ body {
     font-size: 15px;
     transition: all .5s ease;
     text-align: center;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dosis', sans-serif;
 }
 
     .buttonmiddle:hover {
@@ -147,7 +96,7 @@ body {
     text-decoration: none;
     font-size: 15px;
     transition: all .5s ease;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Dosis', sans-serif;
 }
 
     .buttonlight:hover {
@@ -165,63 +114,6 @@ body {
         transform: translateY(10px);
         transition: 100ms;
     }
-
-.card1 {
-    --background: linear-gradient(to left, #f7ba2b 0%, #ea5358 100%);
-    width: 190px;
-    height: 254px;
-    padding: 5px;
-    border-radius: 1rem;
-    overflow: visible;
-    background: #f7ba2b;
-    background: var(--background);
-    position: relative;
-    z-index: 1;
-}
-
-    .card1::after {
-        position: absolute;
-        content: "";
-        top: 30px;
-        left: 0;
-        right: 0;
-        z-index: -1;
-        height: 100%;
-        width: 100%;
-        transform: scale(0.8);
-        filter: blur(25px);
-        background: #f7ba2b;
-        background: var(--background);
-        transition: opacity .5s;
-    }
-
-.card1-info {
-    --color: #181818;
-    background: var(--color);
-    color: var(--color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    border-radius: .7rem;
-}
-
-.card1 .title {
-    font-weight: bold;
-    letter-spacing: .1em;
-}
-
-/*Hover*/
-.card1:hover::after {
-    opacity: 0;
-}
-
-.card1:hover .card-info {
-    color: #f7ba2b;
-    transition: color 1s;
-}
 
 /* Absolute Center Spinner */
 .loading {
@@ -382,7 +274,36 @@ body {
 }
 
 body{
-    background: url(../Images/Background.jpg);
+    background: url(../Images/background3.jpg);
     background-size: cover;
     background-attachment: fixed;
 }
+
+.description {
+    position: relative;
+    border-bottom: 1px dotted black;
+}
+
+    .description:before {
+        content: attr(content);
+        visibility: hidden;
+        opacity: 0;
+        background-color: lightblue;
+        color: rgba(0, 0, 0, 0.75);
+        text-align: initial;
+        border-radius: 5px;
+        padding: 10px 15px 15px 15px;
+        transition: opacity 0.2s ease-in-out;
+        position: absolute;
+        z-index: 1;
+        left: 0;
+        top: 110%;
+        width: auto;
+        height: auto;
+    }
+
+    .description:hover:before {
+        opacity: 1;
+        visibility: visible;
+        opacity: 90%;
+    }
