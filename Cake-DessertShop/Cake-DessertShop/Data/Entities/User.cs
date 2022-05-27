@@ -47,5 +47,7 @@ namespace CakeDessertShop.Data.Entities
         [Display(Name = "Usuario")]
         public string FullNameWithDocument => $"{FirstName} {LastName} - {Document}";
 
+        public ICollection<Sale> Sales { get; set; }
+
     }
 }

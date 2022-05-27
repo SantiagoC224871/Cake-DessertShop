@@ -43,6 +43,9 @@ namespace CakeDessertShop.Data.Entities
         public string ImageFullPath => ProductImages == null || ProductImages.Count == 0
             ? $"https://localhost:7070/images/noimage.png"
             : ProductImages.FirstOrDefault().ImageFullPath;
+
+        public ICollection<SaleSummary> SaleDetails { get; set; }
+
     }
 
 }

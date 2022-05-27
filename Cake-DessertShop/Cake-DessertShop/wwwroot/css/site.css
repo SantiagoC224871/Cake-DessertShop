@@ -26,7 +26,7 @@ body {
 }
 
 @charset "utf-8";
-
+/*buttons*/
 .button {
     padding: 10px 10px;
     border-radius: 10px;
@@ -278,7 +278,7 @@ body{
     background-size: cover;
     background-attachment: fixed;
 }
-
+/*Hover Description*/
 .description {
     position: relative;
     border-bottom: 1px dotted black;
@@ -288,8 +288,8 @@ body{
         content: attr(content);
         visibility: hidden;
         opacity: 0;
-        background-color: lightblue;
-        color: rgba(0, 0, 0, 0.75);
+        background-color: lightcoral;
+        color: white;
         text-align: initial;
         border-radius: 5px;
         padding: 10px 15px 15px 15px;
@@ -307,3 +307,24 @@ body{
         visibility: visible;
         opacity: 90%;
     }
+
+/*Carousel*/
+.carousel-inner {
+    width: auto;
+    height: 500px;
+    max-height: 500px !important;
+}
+
+.carousel-content {
+    color: black;
+    display: flex;
+    text-align: center;
+}
+.detailstittle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 50px;
+    text-align: center;
+    color: black;
+    -webkit-text-stroke: thin;
+    -webkit-text-stroke-color: black;
+}

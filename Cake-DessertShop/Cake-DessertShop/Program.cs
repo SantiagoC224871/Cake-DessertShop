@@ -43,6 +43,7 @@ builder.Services.AddScoped<IBlobHelper, BlobHelper>();
 builder.Services.AddScoped<ICombosHelper, CombosHelper>();
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IMailHelper, MailHelper>();
+builder.Services.AddScoped<IOrdersHelper, OrdersHelper>();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
 
