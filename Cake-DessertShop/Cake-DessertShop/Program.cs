@@ -37,7 +37,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/Account/NotAuthorized";
     options.AccessDeniedPath = "/Account/NotAuthorized";
 });
-
+builder.Services.AddFlashMessage();
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 builder.Services.AddScoped<IBlobHelper, BlobHelper>();
 builder.Services.AddScoped<ICombosHelper, CombosHelper>();
