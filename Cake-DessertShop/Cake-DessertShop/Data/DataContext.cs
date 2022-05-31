@@ -30,6 +30,7 @@ namespace CakeDessertShop.Data
         public DbSet<SaleSummary> SaleSummaries { get; set; }
 
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

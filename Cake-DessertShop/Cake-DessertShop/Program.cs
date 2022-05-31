@@ -3,6 +3,7 @@ using CakeDessertShop.Data.Entities;
 using CakeDessertShop.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Vereyon.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
