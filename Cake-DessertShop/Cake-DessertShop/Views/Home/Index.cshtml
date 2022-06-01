@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Inicio";
 }
+<link rel="stylesheet" href="site.css">
 
 <style type="text/css">
     .card {
@@ -39,11 +40,22 @@
     text-align: center;
 }
 </style>
-
+<br />
 @if(Model.Quantity > 0)
 {
-    <a asp-action="ShowCart" class="button">Ver Carro de Compras (@Model.Quantity)</a>
+
+    <a asp-action="ShowCart"  class="button" ><i class="fa-solid fa-cart-shopping"></i>  Ver Carro de Compras (@Model.Quantity)</a>
 }
+<body>
+    <div class="slider-frame">
+        <ul>
+            <li><img src="~/images/sliders/slide1.jpg" alt="" ></li>
+            <li><img src="~/images/sliders/slide2.jpg" alt="" ></li>
+            <li><img src="~/images/sliders/slide3.jpg" alt="" ></li>
+            <li><img src="~/images/sliders/slide4.jpg" alt="" ></li>
+        </ul>
+    </div>
+</body>
 
 <div class="row row-cols-1 row-cols-md-4 g-4 mt-1">
     @if (Model.Products.Count() > 0)

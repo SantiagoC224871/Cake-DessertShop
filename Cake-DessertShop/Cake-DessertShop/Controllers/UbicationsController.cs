@@ -95,7 +95,7 @@ namespace CakeDessertShop.Controllers
                 }
             }
 
-            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddOrEdit", state });
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddOrEdit", state )});
         }
 
 
