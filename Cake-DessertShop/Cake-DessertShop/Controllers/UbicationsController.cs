@@ -1,10 +1,13 @@
 ﻿#nullable disable
 using CakeDessertShop.Data;
 using CakeDessertShop.Data.Entities;
+using CakeDessertShop.Helpers.Shooping.Helpers;
 using CakeDessertShop.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Vereyon.Web;
+using static CakeDessertShop.Helpers.Shooping.Helpers.ModalHelper;
 
 namespace CakeDessertShop.Controllers
 {
@@ -15,17 +18,93 @@ namespace CakeDessertShop.Controllers
     public class UbicationsController : Controller
     {
         private readonly DataContext _context;
+        private readonly IFlashMessage _flashMessage;
 
-        public UbicationsController(DataContext context)
+        public UbicationsController(DataContext context, IFlashMessage flashMessage)
         {
             _context = context;
+            _flashMessage = flashMessage;
+
         }
+
+        [NoDirectAccess]
+        public async Task<IActionResult> AddOrEdit(int id = 0)
+        {
+            if (id == 0)
+            {
+                return View(new State());
+            }
+            else
+            {
+                State state = await _context.States.FindAsync(id);
+                if (state == null)
+                {
+                    return NotFound();
+                }
+
+                return View(state);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddOrEdit(int id, State state)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    if (id == 0) //Insert
+                    {
+                        _context.Add(state);
+                        await _context.SaveChangesAsync();
+                        _flashMessage.Info("Registro creado.");
+                    }
+                    else //Update
+                    {
+                        _context.Update(state);
+                        await _context.SaveChangesAsync();
+                        _flashMessage.Info("Registro actualizado.");
+                    }
+                    return Json(new
+                    {
+                        isValid = true,
+                        html = ModalHelper.RenderRazorViewToString(
+                            this,
+                            "_ViewAllStates",
+                            _context.States
+                                .Include(s => s.Cities)
+                                .ThenInclude(c => c.Neighborhoods)
+                                .ToList())
+                    });
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
+                    {
+                        _flashMessage.Danger("Ya existe un estado/departamento con el mismo nombre.");
+                    }
+                    else
+                    {
+                        _flashMessage.Danger(dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    _flashMessage.Danger(exception.Message);
+                }
+            }
+
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddOrEdit", state });
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _context.States
                 .Include(s => s.Cities)
+                .ThenInclude(c => c.Neighborhoods)
                 .ToListAsync());
         }
 
@@ -430,7 +509,7 @@ namespace CakeDessertShop.Controllers
             }
             return View(model);
         }
-        [HttpGet]
+        [NoDirectAccess]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -438,26 +517,26 @@ namespace CakeDessertShop.Controllers
                 return NotFound();
             }
 
-            State state = await _context.States
-                .Include(s => s.Cities)
-                .FirstOrDefaultAsync(s => s.Id == id);
+            State state = await _context.States.FirstOrDefaultAsync(s => s.Id == id);
             if (state == null)
             {
                 return NotFound();
             }
 
-            return View(state);
-        }
+            try
+            {
+                _context.States.Remove(state);
+                await _context.SaveChangesAsync();
+                _flashMessage.Info("Registro borrado.");
+            }
+            catch
+            {
+                _flashMessage.Danger("No se puede borrar el estado/departamento porque tiene registros relacionados.");
+            }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            State state = await _context.States.FindAsync(id);
-            _context.States.Remove(state);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
         [HttpGet]
         public async Task<IActionResult> DeleteCity(int? id)
         {
