@@ -2,7 +2,7 @@
 @model CakeDessertShop.Models.AddUserViewModel
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Crear administrador";
 }
 
 <h2>Crear</h2>
@@ -84,6 +84,7 @@
                 });
                 return false;
             })
+
             $("#CityId").change(function () {
                 $("#NeighborhoodId").empty();
                 $("#NeighborhoodId").append('<option value="0">[Selecciona un barrio...]</option>');

@@ -121,7 +121,7 @@ namespace CakeDessertShop.Controllers
             return Json(state.Cities.OrderBy(d => d.Name));
         }
 
-        public JsonResult GetNeighborhood(int cityId)
+        public JsonResult GetNeighborhoods(int cityId)
         {
             City city = _context.Cities
                 .Include(c => c.Neighborhoods)
