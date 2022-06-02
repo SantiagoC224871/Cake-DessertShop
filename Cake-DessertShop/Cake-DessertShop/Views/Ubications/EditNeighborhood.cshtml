@@ -1,26 +1,25 @@
 ﻿@model CakeDessertShop.Models.NeighborhoodViewModel
 
 @{
-    ViewData["Title"] = "Editar barrio";
+    ViewData["Title"] = "Barrio";
+    Layout = null;
 }
 
-<h1>Editar</h1>
+<flash dismissable="true" />
 
-<h4>Barrio</h4>
-<hr />
-<div class="row">
-    <div class="col-md-12">
-        <form asp-action="EditNeighborhood">
+<div class="container smfont">
+    <form asp-action="EditNeighborhood" autocomplete="off" asp-route-id="@Model.Id" onsubmit="return jQueryAjaxPost(this);">
+        <div class="box-body">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="CityId" />
             <partial name="_Neighborhood"/>
-            <div class="form-group mt-2">
-                <input type="submit" value="Guardar" class="buttonmiddle" />
-                <a asp-action="DetailsCity" asp-route-id="@Model.CityId" class="buttonlight">Regresar</a>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+            <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-save"></i> Guardar</button>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

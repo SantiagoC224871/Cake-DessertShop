@@ -95,7 +95,7 @@ namespace CakeDessertShop.Controllers
                 }
             }
 
-            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddOrEdit", state )});
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddOrEdit", state) });
         }
 
 
@@ -148,29 +148,11 @@ namespace CakeDessertShop.Controllers
             return View(city);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> DetailsNeighborhood(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            Neighborhood neighborhood = await _context.Neighborhoods
-                .Include(n => n.City)
-                .FirstOrDefaultAsync(n => n.Id == id);
-            if (neighborhood == null)
-            {
-                return NotFound();
-            }
-
-            return View(neighborhood);
-        }
-        
 
         [HttpGet]
         [NoDirectAccess]
-        public async Task<IActionResult>  AddCity(int id)
+        public async Task<IActionResult> AddCity(int id)
         {
             if (id == null)
             {
@@ -178,13 +160,13 @@ namespace CakeDessertShop.Controllers
             }
 
             State state = await _context.States.FindAsync(id);
-            if(state == null)
+            if (state == null)
             {
                 return NotFound();
             }
             CityViewModel model = new()
             {
-                StateId=state.Id,
+                StateId = state.Id,
             };
 
             return View(model);
@@ -196,7 +178,7 @@ namespace CakeDessertShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 try
                 {
                     City city = new()
@@ -235,12 +217,10 @@ namespace CakeDessertShop.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddNeighborhood(int? id)
+        [NoDirectAccess]
+
+        public async Task<IActionResult> AddNeighborhood(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
             City city = await _context.Cities.FindAsync(id);
             if (city == null)
@@ -257,48 +237,52 @@ namespace CakeDessertShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddNeighborhood(NeighborhoodViewModel model)
+        public async Task<IActionResult> AddNeighborhood(CityViewModel model)
         {
             if (ModelState.IsValid)
             {
-
+                City city = await _context.Cities.FindAsync(model.StateId);
+                Neighborhood neighborhood = new()
+                {
+                    City = city,
+                    Name = model.Name
+                };
+                _context.Add(neighborhood);
                 try
                 {
-                    Neighborhood neighborhood = new()
-                    {
-                        City = await _context.Cities.FindAsync(model.CityId),
-                        Name = model.Name,
-                    };
-                    _context.Add(neighborhood);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(DetailsCity), new { Id = model.CityId });
+                    city = await _context.Cities
+                        .Include(c => c.Neighborhoods)
+                        .FirstOrDefaultAsync(n => n.Id == model.StateId);
+                    return Json(new { isValid = true, html = ModalHelper.RenderRazorViewToString(this, "_ViewAllNeighborhoods", city) });
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
                     if (dbUpdateException.InnerException.Message.Contains("duplicate"))
                     {
-                        ModelState.AddModelError(string.Empty, "Ya existe un barrio con el mismo nombre en esta ciudad.");
+                        _flashMessage.Danger("Ya existe un barrio con el mismo nombre.");
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                        _flashMessage.Danger(dbUpdateException.InnerException.Message);
                     }
                 }
                 catch (Exception exception)
                 {
-                    ModelState.AddModelError(string.Empty, exception.Message);
+                    _flashMessage.Danger(exception.Message);
                 }
             }
-            return View(model);
+
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddNeighborhood", model) });
         }
 
-        
+
         [HttpGet]
         [NoDirectAccess]
 
         public async Task<IActionResult> EditCity(int id)
         {
-           
+
             City city = await _context.Cities
                 .Include(c => c.State)
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -327,7 +311,7 @@ namespace CakeDessertShop.Controllers
 
             if (ModelState.IsValid)
             {
-                
+
                 try
                 {
                     City city = new()
@@ -364,6 +348,8 @@ namespace CakeDessertShop.Controllers
         }
 
         [HttpGet]
+        [NoDirectAccess]
+
         public async Task<IActionResult> EditNeighborhood(int? id)
         {
             if (id == null)
@@ -409,7 +395,12 @@ namespace CakeDessertShop.Controllers
                     };
                     _context.Update(neighborhood);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(DetailsCity), new { Id = model.CityId });
+                    City city = await _context.Cities
+                    .Include(c => c.Neighborhoods)
+                    .FirstOrDefaultAsync(n => n.Id == model.CityId);
+                    _flashMessage.Confirmation("Registro actualizado.");
+                    return Json(new { isValid = true, html = ModalHelper.RenderRazorViewToString(this, "_ViewAllNeighborhoods", city) });
+
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -427,7 +418,7 @@ namespace CakeDessertShop.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
-            return View(model);
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "EditNeighborhood", model) });
         }
         [NoDirectAccess]
         public async Task<IActionResult> Delete(int? id)
@@ -486,7 +477,6 @@ namespace CakeDessertShop.Controllers
             return RedirectToAction(nameof(Details), new { Id = city.State.Id });
         }
 
-        [HttpGet]
         public async Task<IActionResult> DeleteNeighborhood(int? id)
         {
             if (id == null)
@@ -496,26 +486,25 @@ namespace CakeDessertShop.Controllers
 
             Neighborhood neighborhood = await _context.Neighborhoods
                 .Include(n => n.City)
-                .FirstOrDefaultAsync(n => n.Id == id);
+                .FirstOrDefaultAsync(c => c.Id == id);
             if (neighborhood == null)
             {
                 return NotFound();
             }
 
-            return View(neighborhood);
-        }
+            try
+            {
+                _context.Neighborhoods.Remove(neighborhood);
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                _flashMessage.Danger("No se puede borrar el barrio porque tiene registros relacionados.");
+            }
 
-        [HttpPost, ActionName("DeleteNeighborhood")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteNeighborhoodConfirmed(int id)
-        {
-            Neighborhood neighborhood = await _context.Neighborhoods
-                .Include(n => n.City)
-                .FirstOrDefaultAsync(n => n.Id == id);
-            _context.Neighborhoods.Remove(neighborhood);
-            await _context.SaveChangesAsync();
+            _flashMessage.Info("Registro borrado.");
             return RedirectToAction(nameof(DetailsCity), new { Id = neighborhood.City.Id });
         }
+        }
     }
-}
 
