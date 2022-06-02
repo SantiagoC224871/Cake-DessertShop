@@ -166,46 +166,11 @@ namespace CakeDessertShop.Controllers
 
             return View(neighborhood);
         }
-        [HttpGet]
-        public IActionResult Create()
-        {
-            State state = new() { Cities = new List<City>() };
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(State state)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(state);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateException dbUpdateException)
-                {
-                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
-                    {
-                        ModelState.AddModelError(string.Empty, "Ya existe un departamento con el mismo nombre.");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
-                    }
-                }
-                catch (Exception exception)
-                {
-                    ModelState.AddModelError(string.Empty, exception.Message);
-                }
-            }
-            return View(state);
-        }
+        
 
         [HttpGet]
-        public async Task<IActionResult>  AddCity(int? id)
+        [NoDirectAccess]
+        public async Task<IActionResult>  AddCity(int id)
         {
             if (id == null)
             {
@@ -242,7 +207,13 @@ namespace CakeDessertShop.Controllers
                     };
                     _context.Add(city);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Details), new {Id=model.StateId});
+                    State state = await _context.States
+                    .Include(s => s.Cities)
+                    .ThenInclude(c => c.Neighborhoods)
+                    .FirstOrDefaultAsync(n => n.Id == model.StateId);
+                    _flashMessage.Info("Registro creado.");
+                    return Json(new { isValid = true, html = ModalHelper.RenderRazorViewToString(this, "_ViewAllCities", state) });
+
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -260,7 +231,7 @@ namespace CakeDessertShop.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
-            return View(model);
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "AddCity", model) });
         }
 
         [HttpGet]
@@ -321,69 +292,13 @@ namespace CakeDessertShop.Controllers
             return View(model);
         }
 
+        
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        [NoDirectAccess]
+
+        public async Task<IActionResult> EditCity(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            
-            State state = await _context.States
-                .Include (s => s.Cities )
-                .FirstOrDefaultAsync(s => s.Id == id);
-            if (state == null)
-            {
-                return NotFound();
-            }
-            return View(state);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, State state)
-        {
-            if (id != state.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                _context.Update(state);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateException dbUpdateException)
-                {
-                    if (dbUpdateException.InnerException.Message.Contains("duplicate"))
-                    {
-                        ModelState.AddModelError(string.Empty, "Ya existe un departamento con el mismo nombre.");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
-                    }
-                }
-                catch (Exception exception)
-                {
-                    ModelState.AddModelError(string.Empty, exception.Message);
-                }
-            }
-            return View(state);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditCity(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+           
             City city = await _context.Cities
                 .Include(c => c.State)
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -421,8 +336,13 @@ namespace CakeDessertShop.Controllers
                         Name = model.Name,
                     };
                     _context.Update(city);
+                    State state = await _context.States
+                    .Include(s => s.Cities)
+                    .ThenInclude(c => c.Neighborhoods)
+                    .FirstOrDefaultAsync(n => n.Id == model.StateId);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Details), new {Id=model.StateId});
+                    _flashMessage.Confirmation("Registro actualizado");
+                    return Json(new { isValid = true, html = ModalHelper.RenderRazorViewToString(this, "_ViewAllCities", state) });
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
@@ -440,7 +360,7 @@ namespace CakeDessertShop.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
-            return View(model);
+            return Json(new { isValid = false, html = ModalHelper.RenderRazorViewToString(this, "EditCity", model) });
         }
 
         [HttpGet]
@@ -536,9 +456,8 @@ namespace CakeDessertShop.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
-        [HttpGet]
-        public async Task<IActionResult> DeleteCity(int? id)
+        [NoDirectAccess]
+        public async Task<IActionResult> DeleteCity(int id)
         {
             if (id == null)
             {
@@ -553,21 +472,20 @@ namespace CakeDessertShop.Controllers
                 return NotFound();
             }
 
-            return View(city);
-        }
+            try
+            {
+                _context.Cities.Remove(city);
+                await _context.SaveChangesAsync();
+                _flashMessage.Info("Registro borrado.");
+            }
+            catch
+            {
+                _flashMessage.Danger("No se puede borrar la ciudad porque tiene registros relacionados.");
+            }
 
-        [HttpPost, ActionName("DeleteCity")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteCityConfirmed(int id)
-        {
-            City city = await _context.Cities
-                .Include(c => c.State)
-                .FirstOrDefaultAsync(c => c.Id == id);
-            _context.Cities.Remove(city);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Details), new { Id = city.State.Id });
-
         }
+
         [HttpGet]
         public async Task<IActionResult> DeleteNeighborhood(int? id)
         {
