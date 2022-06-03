@@ -4,7 +4,9 @@ font-family: 'Pacifico', cursive;
 font-family: 'Dancing Script', cursive;
 font-family: 'Questrial', sans-serif;
 */
-
+* {
+    font-family: 'Questrial', sans-serif;
+}
 
 html {
   font-size: 14px;
