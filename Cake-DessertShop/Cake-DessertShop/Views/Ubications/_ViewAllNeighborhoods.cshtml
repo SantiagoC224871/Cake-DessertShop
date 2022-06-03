@@ -13,7 +13,7 @@
                 @Html.DisplayNameFor(model => model.Neighborhoods.FirstOrDefault().Name)
             </th>
             <th>
-                <a onclick="showInPopup('@Url.Action("AddNeighborhood", "Ubications", new { id = Model.Id }, Context.Request.Scheme)' , 'Nuevo barrio')" class="btn btn-sm btn-primary text-white"><i class="fa fa-plus-circle"></i> Barrio </a>
+                <a onclick="showInPopup('@Url.Action("AddNeighborhood", "Ubications", new { id = Model.Id }, Context.Request.Scheme)' , 'Nuevo barrio')" class="btn btn-sm buttonlight text-white"><i class="fa fa-plus-circle"></i> Barrio </a>
             </th>
         </tr>
     </thead>
@@ -25,8 +25,8 @@
             </td>
                 @Html.DisplayFor(modelItem => item.Name)
             <td>
-                <a onclick="showInPopup('@Url.Action("EditNeighborhood", "Ubications", new { id = item.Id }, Context.Request.Scheme)' , 'Actualizar barrio')" class="btn btn-sm btn-warning"><i class="fa fa-pencil-alt"></i> </a>
-                <button data-id="@item.Id" class="btn btn-sm btn-danger deleteItem" data-bs-toggle="modal" data-bs-target="#deleteDialog"><i class="fa fa-trash"></i></button>
+                <a onclick="showInPopup('@Url.Action("EditNeighborhood", "Ubications", new { id = item.Id }, Context.Request.Scheme)' , 'Actualizar barrio')" class="btn btn-sm buttonmiddle"><i class="fa fa-pencil-alt"></i> </a>
+                <button data-id="@item.Id" class="btn btn-sm button deleteItem" data-bs-toggle="modal" data-bs-target="#deleteDialog"><i class="fa fa-trash"></i></button>
             </td>
         </tr>
         }

@@ -1,7 +1,7 @@
 ﻿@model CakeDessertShop.Data.Entities.City
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles ciudad";
 }
 
 <flash dismissable="true" />
@@ -13,20 +13,21 @@
 </div>
 
 <div>
-    <a asp-action="Details" asp-route-id="@Model?.State.Id" class="btn btn-outline-success"><i class="fa-solid fa-arrow-rotate-left"></i> Regresar</a>
+    <a asp-action="Details" asp-route-id="@Model?.State.Id" class="buttonlight"><i class="fa-solid fa-arrow-rotate-left"></i> Regresar</a>
 </div>
 <hr />
 
 <!-- Content Wrapper. Contains page content -->
 <div class="container-fluid">
     <div class="card mt-2">
-        <div class="card-header text-danger">
-            <i class="fa fa-object-group"></i>  <strong> Ciudades </strong>
+        <div class="card-header text-white" style="background-color: #e23a3a">
+            <i class="fa-solid fa-map-location-dot"></i> <strong>Barrios</strong>
         </div>
         <div class="card-body">
             <div id="view-all">
-                @await Html.PartialAsync("_ViewAllNeighborhoods", Model)
+                
             </div>
+            @await Html.PartialAsync("_ViewAllNeighborhoods", Model)
         </div>
     </div>
 </div>

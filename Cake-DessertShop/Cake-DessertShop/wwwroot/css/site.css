@@ -332,11 +332,10 @@ body{
 /*sliderindex*/
 
 .slider-frame {
-    width: 1280px;
+    width: 800px;
     height: auto;
     margin: 50px auto auto auto;
     overflow: hidden;
-    border-radius: 15%;
 }
 
     .slider-frame ul {
@@ -349,7 +348,6 @@ body{
     .slider-frame li {
         width: 100%;
         list-style: none;
-
     }
 
     .slider-frame img {
@@ -366,5 +364,3 @@ body{
     75% {margin-left: -300%;}
     100% {margin-left: -300%;}
 }
-
-/*donut*/
