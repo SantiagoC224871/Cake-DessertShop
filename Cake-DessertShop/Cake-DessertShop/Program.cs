@@ -25,9 +25,9 @@ builder.Services.AddIdentity<User, IdentityRole>(cfg =>
     cfg.Password.RequiredUniqueChars = 0;
     cfg.Password.RequireLowercase = false;
     cfg.Password.RequireNonAlphanumeric = false;
-    cfg.Password.RequireUppercase = false;
+    cfg.Password.RequireUppercase = true;
     cfg.Password.RequiredLength = 6;
-    cfg.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+    cfg.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
     cfg.Lockout.MaxFailedAccessAttempts = 3;
     cfg.Lockout.AllowedForNewUsers = true;
 })  .AddDefaultTokenProviders()
